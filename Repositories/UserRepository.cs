@@ -12,6 +12,11 @@ namespace EDriveRent.Repositories
     {
         private readonly List<IUser> users;
 
+        public UserRepository()
+        {
+            users = new List<IUser>();
+        }
+
         public void AddModel(IUser model)
         {
             users.Add(model);

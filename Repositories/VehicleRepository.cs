@@ -12,6 +12,10 @@ namespace EDriveRent.Repositories
     {
         private readonly List<IVehicle> vehicles;
 
+        public VehicleRepository()
+        {
+            vehicles = new List<IVehicle>();
+        }
         public void AddModel(IVehicle vehicle)
         {
             vehicles.Add(vehicle);

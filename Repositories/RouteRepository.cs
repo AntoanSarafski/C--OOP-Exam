@@ -13,6 +13,10 @@ namespace EDriveRent.Repositories
     {
         private readonly List<IRoute> routes;
 
+        public RouteRepository()
+        {
+            routes = new List<IRoute>();
+        }
         public void AddModel(IRoute route)
         {
             routes.Add(route);
