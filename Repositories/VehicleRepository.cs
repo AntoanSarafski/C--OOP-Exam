@@ -10,24 +10,40 @@ namespace EDriveRent.Repositories
 {
     public class VehicleRepository : IRepository<IVehicle>
     {
-        public void AddModel(IVehicle model)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly List<IVehicle> vehicles;
 
-        public IVehicle FindById(string identifier)
+        public void AddModel(IVehicle vehicle)
         {
-            throw new NotImplementedException();
-        }
-
-        public IReadOnlyCollection<IVehicle> GetAll()
-        {
-            throw new NotImplementedException();
+            vehicles.Add(vehicle);
         }
 
         public bool RemoveById(string identifier)
         {
-            throw new NotImplementedException();
+            IVehicle vehicleForRemoving = vehicles.First(u => u.LicensePlateNumber == identifier);
+
+            if (vehicleForRemoving == null)
+            {
+                return false;
+            }
+            else
+            {
+                vehicles.Remove(vehicleForRemoving);
+                return true;
+            }
         }
+
+        public IVehicle FindById(string identifier)
+        {
+            if (vehicles.FirstOrDefault(u => u.LicensePlateNumber == identifier) != null)
+            {
+                return vehicles.First(u => u.LicensePlateNumber == identifier);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        IReadOnlyCollection<IVehicle> IRepository<IVehicle>.GetAll() => vehicles.AsReadOnly();
     }
 }

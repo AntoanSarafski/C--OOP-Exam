@@ -10,24 +10,41 @@ namespace EDriveRent.Repositories
 {
     public class UserRepository : IRepository<IUser>
     {
+        private readonly List<IUser> users;
+
         public void AddModel(IUser model)
         {
-            throw new NotImplementedException();
-        }
-
-        public IUser FindById(string identifier)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IReadOnlyCollection<IUser> GetAll()
-        {
-            throw new NotImplementedException();
+            users.Add(model);
         }
 
         public bool RemoveById(string identifier)
         {
-            throw new NotImplementedException();
+            IUser userForRemoving = users.First(u => u.DrivingLicenseNumber == identifier);
+
+            if (userForRemoving == null)
+            {
+                return false;
+            }
+            else
+            {
+                users.Remove(userForRemoving);
+                return true;
+            }
         }
+
+        public IUser FindById(string identifier)
+        {
+            if(users.FirstOrDefault(u => u.DrivingLicenseNumber == identifier) != null)
+            {
+                return users.First(u => u.DrivingLicenseNumber == identifier);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IReadOnlyCollection<IUser> GetAll() => users.AsReadOnly();
+
     }
 }

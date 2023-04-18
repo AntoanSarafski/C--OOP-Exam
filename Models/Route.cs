@@ -1,4 +1,5 @@
 ﻿using EDriveRent.Models.Contracts;
+using EDriveRent.Utilities.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +24,60 @@ namespace EDriveRent.Models
             RouteId = routeId;
         }
 
-        public string StartPoint { get => startPoint; private set => startPoint = value; }
+        public string StartPoint 
+        {
+            get => startPoint;
+            private set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(ExceptionMessages.StartPointNull);
+                }
+                startPoint = value;
+            } 
+        }
 
-        public string EndPoint { get => endPoint; private set => endPoint = value; }
+        public string EndPoint
+        { 
+            get => endPoint;
+            private set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(ExceptionMessages.EndPointNull);
+                }
+                endPoint = value;
+            }
+        }
 
-        public double Length { get => length; private set => length = value; }
+        public double Length 
+        { 
+            get => length;
+            private set
+            {
+                if(value < 1)
+                {
+                    throw new ArgumentException(ExceptionMessages.RouteLengthLessThanOne);
+                }
+                length = value;
+            } 
+        }
 
-        public int RouteId { get => routeId; private set => routeId = value; }
+        public int RouteId
+        {
+            get => routeId; 
+            private set => routeId = value;
+        }
 
-        public bool IsLocked { get => isLocked; private set => isLocked = value; }
+        public bool IsLocked
+        {
+            get => isLocked;
+            private set => isLocked = value; 
+        }
 
         public void LockRoute()
         {
-            throw new NotImplementedException();
+            IsLocked = true;
         }
     }
 }
