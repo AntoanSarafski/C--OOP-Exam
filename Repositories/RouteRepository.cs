@@ -1,4 +1,5 @@
-﻿using EDriveRent.Models.Contracts;
+﻿using EDriveRent.Models;
+using EDriveRent.Models.Contracts;
 using EDriveRent.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,40 @@ namespace EDriveRent.Repositories
 {
     public class RouteRepository : IRepository<IRoute>
     {
-        public void AddModel(IRoute model)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly List<IRoute> routes;
 
-        public IRoute FindById(string identifier)
+        public void AddModel(IRoute route)
         {
-            throw new NotImplementedException();
-        }
-
-        public IReadOnlyCollection<IRoute> GetAll()
-        {
-            throw new NotImplementedException();
+            routes.Add(route);
         }
 
         public bool RemoveById(string identifier)
         {
-            throw new NotImplementedException();
+            int indentifierAsInt = int.Parse(identifier);
+
+            IRoute routeForRemoving = routes.FirstOrDefault(r => r.RouteId == indentifierAsInt);
+            if (routeForRemoving == null) return false;
+            else
+            {
+                routes.Remove(routeForRemoving);
+                return true;
+            }
         }
+
+        IRoute IRepository<IRoute>.FindById(string identifier)
+        {
+            int indentifierAsInt = int.Parse(identifier);
+            IRoute routeForFindingById = routes.FirstOrDefault(r => r.RouteId == indentifierAsInt);
+            if (routeForFindingById == null)
+            {
+                return null;
+            }
+            else
+            {
+                return routes.First(r => r.RouteId == indentifierAsInt);
+            }
+        }
+
+        IReadOnlyCollection<IRoute> IRepository<IRoute>.GetAll() => routes.AsReadOnly();
     }
 }

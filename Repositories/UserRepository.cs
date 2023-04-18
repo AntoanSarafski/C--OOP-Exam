@@ -19,7 +19,7 @@ namespace EDriveRent.Repositories
 
         public bool RemoveById(string identifier)
         {
-            IUser userForRemoving = users.First(u => u.DrivingLicenseNumber == identifier);
+            IUser userForRemoving = users.FirstOrDefault(u => u.DrivingLicenseNumber == identifier);
 
             if (userForRemoving == null)
             {
