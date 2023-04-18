@@ -11,9 +11,10 @@ namespace EDriveRent.Repositories
 {
     public class RouteRepository : IRepository<IRoute>
     {
+
         public void AddModel(IRoute model)
         {
-            throw new NotImplementedException();
+            routes.Add(model);
         }
 
         public IRoute FindById(string identifier)
