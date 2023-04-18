@@ -11,31 +11,12 @@ namespace EDriveRent.Repositories
 {
     public class RouteRepository : IRepository<IRoute>
     {
-        private readonly List<IRoute> routes;
-
-        public RouteRepository()
+        public void AddModel(IRoute model)
         {
-            routes = new List<IRoute>();
-        }
-        public void AddModel(IRoute route)
-        {
-            routes.Add(route);
+            throw new NotImplementedException();
         }
 
-        public bool RemoveById(string identifier)
-        {
-            int indentifierAsInt = int.Parse(identifier);
-
-            IRoute routeForRemoving = routes.FirstOrDefault(r => r.RouteId == indentifierAsInt);
-            if (routeForRemoving == null) return false;
-            else
-            {
-                routes.Remove(routeForRemoving);
-                return true;
-            }
-        }
-
-        IRoute IRepository<IRoute>.FindById(string identifier)
+        public IRoute FindById(string identifier)
         {
             int indentifierAsInt = int.Parse(identifier);
             IRoute routeForFindingById = routes.FirstOrDefault(r => r.RouteId == indentifierAsInt);
@@ -49,6 +30,33 @@ namespace EDriveRent.Repositories
             }
         }
 
-        IReadOnlyCollection<IRoute> IRepository<IRoute>.GetAll() => routes.AsReadOnly();
+        public IReadOnlyCollection<IRoute> GetAll()
+        {
+            return routes.AsReadOnly();
+        }
+
+        public bool RemoveById(string identifier)
+        {
+            int indentifierAsInt = int.Parse(identifier);
+            IRoute routeForRemoving = routes.FirstOrDefault(u => u.RouteId == indentifierAsInt);
+
+            if (routeForRemoving == null)
+            {
+                return false;
+            }
+            else
+            {
+                routes.Remove(routeForRemoving);
+                return true;
+            }
+        }
+
+
+        private readonly List<IRoute> routes;
+
+        public RouteRepository()
+        {
+            routes = new List<IRoute>();
+        }
     }
 }

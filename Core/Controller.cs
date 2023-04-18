@@ -63,6 +63,7 @@ namespace EDriveRent.Core
                     IVehicle vehicle = new PassengerCar(brand, model, licensePlateNumber);
                     vehicles.AddModel(vehicle);
                     return String.Format(OutputMessages.VehicleAddedSuccessfully, brand, model, licensePlateNumber);
+                    
                 }
             }
 
@@ -72,7 +73,28 @@ namespace EDriveRent.Core
 
         public string AllowRoute(string startPoint, string endPoint, double length)
         {
-            throw new NotImplementedException();
+
+            if (routes.GetAll()
+                .Contains(routes.GetAll()
+                .FirstOrDefault(r => r.StartPoint == startPoint && r.EndPoint == endPoint && r.Length == length)))
+            {
+                return String.Format(OutputMessages.RouteExisting, startPoint, endPoint, length);
+            }    
+
+            if(routes.GetAll()
+                .Contains(routes.GetAll().FirstOrDefault(r => r.StartPoint == startPoint && r.EndPoint == endPoint && r.Length < length)))
+            {
+                return String.Format(OutputMessages.RouteIsTooLong, startPoint, endPoint);
+            }
+            IRoute route = new Route(startPoint, endPoint, length, routes.GetAll().Count + 1);
+            routes.AddModel(route);
+
+            if (routes.GetAll().Contains(routes.GetAll().FirstOrDefault(r => r.StartPoint == startPoint && r.EndPoint == endPoint && r.Length > length)))
+            {
+                routes.GetAll().First(r => r.StartPoint == startPoint && r.EndPoint == endPoint && r.Length > length).LockRoute();
+            }
+            return String.Format(OutputMessages.NewRouteAdded, startPoint, endPoint, length);
+
         }
 
         public string MakeTrip(string drivingLicenseNumber, string licensePlateNumber, string routeId, bool isAccidentHappened)

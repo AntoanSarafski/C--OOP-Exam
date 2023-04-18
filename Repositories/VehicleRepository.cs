@@ -48,6 +48,9 @@ namespace EDriveRent.Repositories
             }
         }
 
-        IReadOnlyCollection<IVehicle> IRepository<IVehicle>.GetAll() => vehicles.AsReadOnly();
+        public IReadOnlyCollection<IVehicle> GetAll()
+        {
+            return vehicles.AsReadOnly();
+        }
     }
 }
