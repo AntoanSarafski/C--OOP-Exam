@@ -42,7 +42,7 @@ namespace EDriveRent.Core
 
         public string UploadVehicle(string vehicleType, string brand, string model, string licensePlateNumber)
         {
-            if(vehicleType != "CargoVan" && vehicleType != "PassangerCar")
+            if(vehicleType != "CargoVan" && vehicleType != "PassengerCar")
             {
                 return String.Format(OutputMessages.VehicleTypeNotAccessible, vehicleType);
             }
