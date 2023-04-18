@@ -13,5 +13,6 @@ namespace EDriveRent.Models
             : base(brand, model, _maxMileage, licensePlateNumber)
         {
         }
+
     }
 }

@@ -78,8 +78,8 @@ namespace EDriveRent.Models
 
         public bool IsDamaged
         { 
-            get => isDamaged;
-            private set => isDamaged = value; 
+           get => isDamaged;
+           private set => isDamaged = value; 
         }
 
         public void ChangeStatus()

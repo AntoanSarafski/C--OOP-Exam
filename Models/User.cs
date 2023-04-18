@@ -79,12 +79,21 @@ namespace EDriveRent.Models
 
         public void DecreaseRating()
         {
-            throw new NotImplementedException();
+            Rating -= 2;
+            if (Rating < 0)
+            {
+                Rating = 0;
+                IsBlocked = true;
+            }
         }
 
         public void IncreaseRating()
         {
-            throw new NotImplementedException();
+            Rating += 0.5;
+            if (Rating > 10) 
+            {
+                Rating = 10;
+            }
         }
 
         public override string ToString()
